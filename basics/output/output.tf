@@ -30,6 +30,6 @@ output "order1" {
 
 }
 output "order2" {
- value = random_integer.order1.result
+ value = random_integer.order2.result
 
 }
