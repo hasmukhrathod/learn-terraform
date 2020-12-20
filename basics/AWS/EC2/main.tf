@@ -10,3 +10,8 @@ resource "aws_key_pair" "my-public-key" {
   public_key = file("PATH_TO_PUBLIC_KEY.pub")
 
 }
+
+resource "aws_eip" "eip" {
+  instance = aws_instance.web-server.id
+  vpc      = true
+}
