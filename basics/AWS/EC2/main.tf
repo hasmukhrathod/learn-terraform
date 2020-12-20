@@ -1,7 +1,8 @@
 resource "aws_instance" "web-server" {
   ami = "ami-06178cf087598769c"
   instance_type = "m5.large"
-
+  key_name = aws_key_pair.my-public-key.id
+  user_data = file("install-nginx.sh")
 }
 
 resource "aws_key_pair" "my-public-key" {
