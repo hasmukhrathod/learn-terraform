@@ -4,7 +4,7 @@ resource "aws_lb" "app_tier_alb" {
   internal           = var.not_internal
   load_balancer_type = var.lb_type
   #subnets            = [aws_subnet.app_tier_subnet1_az1.id, aws_subnet.app_tier_subnet2_az2.id]
-  security_groups    = [aws_security_group.web_tier_lb_sg.id]
+  security_groups = [aws_security_group.web_tier_lb_sg.id]
   subnets         = [aws_subnet.web_tier_subnet1_az1.id, aws_subnet.web_tier_subnet2_az2.id]
   tags = {
     Name = "${var.project_env}-${var.project_name}-alb"

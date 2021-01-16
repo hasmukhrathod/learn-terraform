@@ -168,4 +168,37 @@ variable "app_tier_alb_tg_group_hcheck_matcher" {
   type    = string
   default = "200-299"
 }
-
+#---------RDS related Variables-------------------
+variable "db_tier_subnet_group" {
+  type    = string
+  default = "db_tier_subnet_group"
+}
+variable "db_storage_type" {
+  type    = string
+  default = "gp2"
+}
+variable "db_storage_allocation" {
+  type    = number
+  default = 20
+}
+variable "db_engine" {
+  type    = string
+  default = "postgres"
+}
+variable "db_engine_version" {
+  type    = string
+  default = "11.5"
+}
+variable "db_instance_class" {
+  type    = string
+  default = "db.t3.micro"
+}
+variable "db_name" {
+  type = string
+}
+variable "db_username" {
+  type = string
+}
+variable "db_password" {
+  type = string
+}

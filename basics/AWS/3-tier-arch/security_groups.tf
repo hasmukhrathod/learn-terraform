@@ -76,7 +76,7 @@ resource "aws_security_group" "app_servers_sg" {
   name        = "app_servers_sg"
   description = "SG for app servers"
   vpc_id      = aws_vpc.vpc_details.id
-  
+
   ingress {
     description     = "Allow SSH from office n/w of home IP"
     from_port       = var.webserver_ssh_port
@@ -84,7 +84,7 @@ resource "aws_security_group" "app_servers_sg" {
     protocol        = "tcp"
     security_groups = [aws_security_group.bastion_host_sg.id]
   }
- 
+
   ingress {
     description = "HTTP from Internet"
     from_port   = var.webserver_http_port
@@ -104,5 +104,28 @@ resource "aws_security_group" "app_servers_sg" {
 
   tags = {
     Name = "${var.project_env}-${var.project_name}-app-servers-sg"
+  }
+}
+
+#SG for RDS
+resource "aws_security_group" "db_tier_sg" {
+  provider = aws.us-east
+  name     = "db_tier_sg"
+  vpc_id   = aws_vpc.vpc_details.id
+  ingress {
+    from_port       = 5432
+    to_port         = 5432
+    protocol        = "tcp"
+    security_groups = [aws_security_group.app_servers_sg.id]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = {
+    Name = "${var.project_env}-${var.project_name}-db-servers-sg"
   }
 }
